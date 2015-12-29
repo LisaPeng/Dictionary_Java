@@ -3,6 +3,10 @@
  */
 public class Test {
     public static void main(String [] args){
-        System.out.print("helloworld");
+       Word word = new Word("hello","vdusib");
+        Tree tree =  new Tree();
+        tree.add(word);
+            System.out.println(tree.find("hello").getWord());
+
     }
 }
