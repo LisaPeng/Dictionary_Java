@@ -72,20 +72,40 @@ public class Tree {
 
         }
 
-        //没有找到单词就返回false说明未修改成功
+        //没有找到单词就返回false说明未删除成功
         if(cursor.getWord()==null)
         {
             return false;
         }
-        //如果找到单词就删除它并返回true说明修改成功
+        //如果找到单词就删除它并返回true说明成功
         cursor.setWord(null);
         return true;
     }
 
     //修改单词功能
-    public Boolean change()
+    public boolean change(String a,Word b)
     {
-        return false;
+        cursor = root;
+        for(int i=0;i<a.length();i++)
+        {
+            if(cursor.next[a.charAt(i)-'a']!= null){
+                cursor = cursor.next[a.charAt(i)-'a'];
+            }
+            else
+            {
+                return false;
+            }
+        }
+        if(cursor.getWord()==null)
+        {
+            return false;
+        }
+        else
+        {
+            cursor.setWord(null);
+            add(b);
+            return true;
+        }
     }
 
 
