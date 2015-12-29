@@ -7,6 +7,9 @@ public class Test {
         Tree tree =  new Tree();
         tree.add(word);
             System.out.println(tree.find("hello").getWord());
+        //tree.delete("hello");
+        System.out.println(tree.find("hello"));
+        System.out.println(tree.delete("hello"));
 
     }
 }

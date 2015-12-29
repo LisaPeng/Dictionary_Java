@@ -23,6 +23,11 @@ public class Word
     }
 
     //setters
-
+    public void setWord(){
+        this.word = word;
+    }
+    public void setMeaning(){
+        this.meaning = meaning;
+    }
 
 }
