@@ -22,6 +22,7 @@ public class GUI {
 }
 class DictionaryFrame extends JFrame
 {
+    static int status = 0;
     //所有组件的初始化
     JPanel jp=null;
     JTextField jtf=null;
@@ -94,27 +95,18 @@ class DictionaryFrame extends JFrame
             }
         });
 
-     /*  //增加按钮的响应事件
+       //增加按钮的响应事件
         jb2.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                 jtf2.setText(null);
-                String m=jtf.getText();
-                System.out.println(m);
-                for(int i=0;i<words.length;i++)
-                {
-                    if(m.equals(words[i].word))
-                    {
-                        jtf2.setText(words[i].meaning);
-                        System.out.println(words[i].meaning);
-                    }else{
-                        jtf2.setText("无法找到该单词，查询失败");
-                    }
-                }
+                jtf3.setText(null);
+                jtf4.setText(null);
+                status = 1;
             }
         });
 
 
-       **   //删除按钮的响应事件
+       /**   //删除按钮的响应事件
         jb3.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                 jtf2.setText(null);
@@ -132,46 +124,54 @@ class DictionaryFrame extends JFrame
                 }
             }
         });
+        */
 
-        //修改按钮的响应事件
+    /*    //修改按钮的响应事件
         jb4.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
-                jtf2.setText(null);
                 String m=jtf.getText();
-                System.out.println(m);
-                for(int i=0;i<words.length;i++)
-                {
-                    if(m.equals(words[i].word))
-                    {
-                        jtf2.setText(words[i].meaning);
-                        System.out.println(words[i].meaning);
-                    }else{
-                        jtf2.setText("无法找到该单词，查询失败");
-                    }
-                }
+                Word word=tree.find(m);
+                if(word!=null){
+                    jtf2.setText(word.getWord());
             }
         });
+*/
 
         //确定按钮的响应事件
         jb5.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
-                jtf2.setText(null);
-                String m=jtf.getText();
-                System.out.println(m);
-                for(int i=0;i<words.length;i++)
-                {
-                    if(m.equals(words[i].word))
+                String m = jtf2.getText();
+                String n = jtf3.getText();
+                String s = jtf4.getText();
+
+                if (m == null & n == null) {
+                    jtf2.setText("格式不合要求，增加失败");
+                }
+                else {
+                    //按钮是增加按钮时的响应事件
+                    if (status == 1) {
+                        Word word = tree.find(m);
+                        if (word != null)
+                        {
+                            jtf2.setText("已存在，增加失败\"");
+                        }
+                        else
+                        {
+                            Word word1 = new Word(m, n, s);
+                            tree.add(word1);
+                        }
+                    }
+                    else
+
+                    //按钮是修改按钮时的响应事件
                     {
-                        jtf2.setText(words[i].meaning);
-                        System.out.println(words[i].meaning);
-                    }else{
-                        jtf2.setText("无法找到该单词，查询失败");
+                        //Word word = tree.add();
                     }
                 }
             }
         });
 
-        ************************/
+
 
         add(jp);
         setSize(400,700);

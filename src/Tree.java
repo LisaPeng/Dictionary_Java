@@ -19,23 +19,6 @@ public class Tree {
         }
     }
 
-    //增加单词功能
-    public void add(Word word)
-    {
-        cursor = root;
-        String Str= word.getWord();
-        for(int i=0;i<Str.length();i++)
-        {
-            if(cursor.next[Str.charAt(i)-'a'] == null){
-                TreeNode treeNode = new TreeNode();
-                cursor.next[Str.charAt(i)-'a'] = treeNode;
-            }
-            cursor = cursor.next[Str.charAt(i)-'a'];
-        }
-        cursor.setWord(word);
-    }
-
-
 
     //查找单词功能
     public Word find(String a)
@@ -53,6 +36,22 @@ public class Tree {
             }
         }
         return cursor.getWord();
+    }
+
+    //增加单词功能
+    public void add(Word word)
+    {
+        cursor = root;
+        String Str= word.getWord();
+        for(int i=0;i<Str.length();i++)
+        {
+            if(cursor.next[Str.charAt(i)-'a'] == null){
+                TreeNode treeNode = new TreeNode();
+                cursor.next[Str.charAt(i)-'a'] = treeNode;
+            }
+            cursor = cursor.next[Str.charAt(i)-'a'];
+        }
+        cursor.setWord(word);
     }
 
     //删除单词功能
