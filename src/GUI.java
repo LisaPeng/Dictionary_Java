@@ -12,7 +12,8 @@ import java.awt.event.ActionListener;
 public class GUI {
     //查询界面
     public static void main(String[] args) {
-        DictionaryFrame df = new DictionaryFrame();
+        Tree tree = new Tree();
+        DictionaryFrame df = new DictionaryFrame(tree);
         df.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         df.setVisible(true);
     }
@@ -21,6 +22,7 @@ public class GUI {
 }
 class DictionaryFrame extends JFrame
 {
+    //所有组件的初始化
     JPanel jp=null;
     JTextField jtf=null;
     JPanel jp2=null;
@@ -36,8 +38,9 @@ class DictionaryFrame extends JFrame
     JTextField jtf4=null;
     JButton jb5=null;
 
-    public DictionaryFrame()
-    {   //三个容器和一个主面板
+    public DictionaryFrame(final Tree tree)
+    {
+        //三个容器和一个主面板
         jtf=new JTextField(30);
 
         jp2=new JPanel();
@@ -69,17 +72,30 @@ class DictionaryFrame extends JFrame
         jp.add(jp2);
         jp.add(jp3);
 
-        final Word[] words=new Word[3];
-        words[0]=new Word("abandon","vt.丢弃；放弃，抛弃");
-        words[1]=new Word("baby","n.婴儿；孩子气的人");
-        words[2]=new Word("cabbage","n.洋白菜，卷心菜");
-
-        for(Word w: words)
+        //查询按钮的响应事件
+        jb1.addActionListener(new ActionListener()
         {
-            System.out.println(w.word+"  "+w.meaning);
-        }
+            public void actionPerformed(ActionEvent e)
+            {
+                jtf2.setText(null);
+                jtf3.setText(null);
+                jtf4.setText(null);
+                String m=jtf.getText();
+                Word word=tree.find(m);
+                if(word!=null){
+                    jtf2.setText(word.getWord());
+                    jtf3.setText(word.getMeaning());
+                    jtf4.setText(word.getExample());
+                }
+                else
+                {
+                    jtf2.setText("无法找到该单词，查询失败");
+                }
+            }
+        });
 
-        jb1.addActionListener(new ActionListener(){
+     /*  //增加按钮的响应事件
+        jb2.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                 jtf2.setText(null);
                 String m=jtf.getText();
@@ -91,11 +107,71 @@ class DictionaryFrame extends JFrame
                         jtf2.setText(words[i].meaning);
                         System.out.println(words[i].meaning);
                     }else{
-                        jtf2.setText("查无此词");
+                        jtf2.setText("无法找到该单词，查询失败");
                     }
                 }
             }
         });
+
+
+       **   //删除按钮的响应事件
+        jb3.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                jtf2.setText(null);
+                String m=jtf.getText();
+                System.out.println(m);
+                for(int i=0;i<words.length;i++)
+                {
+                    if(m.equals(words[i].word))
+                    {
+                        jtf2.setText(words[i].meaning);
+                        System.out.println(words[i].meaning);
+                    }else{
+                        jtf2.setText("无法找到该单词，查询失败");
+                    }
+                }
+            }
+        });
+
+        //修改按钮的响应事件
+        jb4.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                jtf2.setText(null);
+                String m=jtf.getText();
+                System.out.println(m);
+                for(int i=0;i<words.length;i++)
+                {
+                    if(m.equals(words[i].word))
+                    {
+                        jtf2.setText(words[i].meaning);
+                        System.out.println(words[i].meaning);
+                    }else{
+                        jtf2.setText("无法找到该单词，查询失败");
+                    }
+                }
+            }
+        });
+
+        //确定按钮的响应事件
+        jb5.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                jtf2.setText(null);
+                String m=jtf.getText();
+                System.out.println(m);
+                for(int i=0;i<words.length;i++)
+                {
+                    if(m.equals(words[i].word))
+                    {
+                        jtf2.setText(words[i].meaning);
+                        System.out.println(words[i].meaning);
+                    }else{
+                        jtf2.setText("无法找到该单词，查询失败");
+                    }
+                }
+            }
+        });
+
+        ************************/
 
         add(jp);
         setSize(400,700);
