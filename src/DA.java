@@ -65,9 +65,15 @@ public class DA {
         spelling = word.getWord();
         meaning = word.getMeaning();
         sentence = word.getExample();
-        String sql = "INSERT INTO Word(spelling, meaning, sentence) VALUES ("+spelling+","+meaning+","+sentence+")";
+        String sql = "INSERT INTO Word(spelling, meaning, sentence) VALUES (?,?,?)";
         try{
-            this.statement.executeUpdate(sql);
+            PreparedStatement ps = this.conn.prepareStatement(sql);
+            ps.setString(1, spelling);
+            ps.setString(2, meaning);
+            ps.setString(3, sentence);
+            ps.addBatch();
+            ps.executeBatch();
+            ps.close();
             return true;
         } catch (Exception e) {
             System.out.println("sql执行错误: " + e);
