@@ -106,67 +106,99 @@ class DictionaryFrame extends JFrame
         });
 
 
-       /**   //删除按钮的响应事件
+        //删除按钮的响应事件
         jb3.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
-                jtf2.setText(null);
                 String m=jtf.getText();
-                System.out.println(m);
-                for(int i=0;i<words.length;i++)
+                Word word=tree.find(m);
+                if(word == null)
                 {
-                    if(m.equals(words[i].word))
-                    {
-                        jtf2.setText(words[i].meaning);
-                        System.out.println(words[i].meaning);
-                    }else{
-                        jtf2.setText("无法找到该单词，查询失败");
-                    }
+                    jtf2.setText("不存在该词，删除失败");
                 }
+                else
+                {
+                    jtf2.setText(word.getWord());
+                    jtf3.setText(word.getMeaning());
+                    jtf4.setText(word.getExample());
+                }
+                status = 2;
             }
         });
-        */
 
-    /*    //修改按钮的响应事件
+        //修改按钮的响应事件
         jb4.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                 String m=jtf.getText();
                 Word word=tree.find(m);
-                if(word!=null){
+                if(word == null)
+                {
+                    jtf2.setText("不存在该词，修改失败");
+                }
+                else
+                {
                     jtf2.setText(word.getWord());
+                    jtf3.setText(word.getMeaning());
+                    jtf4.setText(word.getExample());
+                }
+                status = 3;
             }
         });
-*/
+
 
         //确定按钮的响应事件
         jb5.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
-                String m = jtf2.getText();
-                String n = jtf3.getText();
-                String s = jtf4.getText();
+                String m = jtf.getText();
+                String n = jtf2.getText();
+                String s = jtf3.getText();
+                String t = jtf4.getText();
 
                 if (m == null & n == null) {
-                    jtf2.setText("格式不合要求，增加失败");
+                    jtf2.setText("格式不合要求,操作失败");
                 }
                 else {
                     //按钮是增加按钮时的响应事件
-                    if (status == 1) {
-                        Word word = tree.find(m);
+                    if (status == 1)
+                    {
+                        Word word = tree.find(n);
                         if (word != null)
                         {
                             jtf2.setText("已存在，增加失败\"");
                         }
                         else
                         {
-                            Word word1 = new Word(m, n, s);
+                            Word word1 = new Word(n, s, t);
                             tree.add(word1);
+                            jtf.setText(null);
+                            jtf2.setText("保存成功");
+                            jtf3.setText(null);
+                            jtf4.setText(null);
                         }
                     }
-                    else
+
+                    //按钮是删除按钮时的响应事件
+                    if(status == 2)
+                    {
+                        tree.delete(m);
+                        jtf.setText(null);
+                        jtf2.setText("删除成功");
+                        jtf3.setText(null);
+                        jtf4.setText(null);
+                    }
 
                     //按钮是修改按钮时的响应事件
+                    if(status == 3)
                     {
-                        //Word word = tree.add();
+                        Word word1 = new Word(n,s,t);
+                        tree.delete(m);
+                        tree.add(word1);
+                        jtf.setText(null);
+                        jtf2.setText("修改成功");
+                        jtf3.setText(null);
+                        jtf4.setText(null);
                     }
+
+
                 }
             }
         });
@@ -174,7 +206,7 @@ class DictionaryFrame extends JFrame
 
 
         add(jp);
-        setSize(400,700);
+        setSize(400,300);
         setLocation(200,200);
         setTitle("My Dictionary");
     }
