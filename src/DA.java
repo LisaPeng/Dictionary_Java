@@ -10,7 +10,8 @@ public class DA {
     }
 
     /**
-     * 建表方法,每次启动都会执行，如果没有表，则创建。
+     * 建表方法,每如果没有表，则创建。
+     * 请在每次运行程序时调用
      */
     public void createTables() {
         PreparedStatement preparedStatement;
@@ -40,7 +41,6 @@ public class DA {
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
         }
-        createTables();
     }
 
     /**
