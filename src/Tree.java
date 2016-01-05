@@ -20,7 +20,7 @@ public class Tree {
     {
         ArrayList<Word> array= this.da.output();
         for(Word w:array) {
-            this.add(w);
+            this.addToTree(w);
         }
     }
 
@@ -43,9 +43,9 @@ public class Tree {
         return cursor.getWord();
     }
 
-    //增加单词功能
-    public void add(Word word)
-    {
+
+
+    public void addToTree(Word word){
         cursor = root;
         String Str= word.getWord();
         for(int i=0;i<Str.length();i++)
@@ -57,6 +57,12 @@ public class Tree {
             cursor = cursor.next[Str.charAt(i)-'a'];
         }
         cursor.setWord(word);
+
+    }
+    //增加单词功能
+    public void add(Word word)
+    {
+        this.addToTree(word);
         da.add(word);
     }
 
