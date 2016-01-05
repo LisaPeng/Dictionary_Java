@@ -8,6 +8,7 @@ import java.util.Date;
 public class TestDA {
     public static void main(String [] args) {
         DA da = new DA();
+        da.createTables();
         Word word = new Word("a1", "2", "3");
         System.out.println("add 'a1' once: " + da.add(word));
         System.out.println("add 'a1' twice: " + da.add(word));

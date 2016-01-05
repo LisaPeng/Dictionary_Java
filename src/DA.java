@@ -31,10 +31,8 @@ public class DA {
      */
     public void initialize() {
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/dictionary?" +
-                    "user=hust&password=diaodiaodiao");
-
-            statement = conn.createStatement();         //??
+            conn = DriverManager.getConnection("jdbc:derby:derbyDB;create=true");
+            statement = conn.createStatement();
         } catch (SQLException ex) {
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());
