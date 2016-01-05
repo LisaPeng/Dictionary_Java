@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Created by lisa on 15-12-28.
  */
@@ -5,17 +7,20 @@ public class Tree {
 
     private TreeNode root;
     private TreeNode cursor;
+    private DA da;
 
-    public Tree() {
+    public Tree(DA da) {
         this.root = new TreeNode();
+        this.da = da;
+        this.build();
     }
 
     //构建一棵树
-    public void build(Word array[])
+    public void build()
     {
-        for(int i = 0;i<array.length;i++)
-        {
-            this.add(array[i]);
+        ArrayList<Word> array= this.da.output();
+        for(Word w:array) {
+            this.add(w);
         }
     }
 
@@ -52,6 +57,7 @@ public class Tree {
             cursor = cursor.next[Str.charAt(i)-'a'];
         }
         cursor.setWord(word);
+        da.add(word);
     }
 
     //删除单词功能
@@ -78,6 +84,7 @@ public class Tree {
         }
         //如果找到单词就删除它并返回true说明成功
         cursor.setWord(null);
+        da.del(a);
         return true;
     }
 
@@ -103,6 +110,8 @@ public class Tree {
         {
             cursor.setWord(null);
             add(b);
+            da.del(a);
+            da.add(b);
             return true;
         }
     }

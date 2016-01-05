@@ -12,7 +12,9 @@ import java.awt.event.ActionListener;
 public class GUI {
     //查询界面
     public static void main(String[] args) {
-        Tree tree = new Tree();
+        DA da = new DA();
+        da.createTables();
+        Tree tree = new Tree(da);
         DictionaryFrame df = new DictionaryFrame(tree);
         df.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         df.setVisible(true);
@@ -98,6 +100,7 @@ class DictionaryFrame extends JFrame
        //增加按钮的响应事件
         jb2.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
+                jtf.setText("请分别在下面三个输入框中输入单词，解释和例句");
                 jtf2.setText(null);
                 jtf3.setText(null);
                 jtf4.setText(null);
