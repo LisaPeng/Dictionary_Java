@@ -8,9 +8,25 @@ public class DA {
     static Connection conn;
     static Statement statement;
 
-    //public static void createTab
+
+    /**
+     * 建表方法,每次启动都会执行，如果没有表，则创建。
+     */
+    public static void createTables() {
+        PreparedStatement preparedStatement;
+        String sql =
+            "create table Word(spelling varchar(32) not null, meaning varchar(128) not null, sentence varchar(256)" +
+                    " not null, primary key (spelling))";
+        try{
+            preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.execute();
+        } catch (Exception e) {
+            System.out.println();
+        }
+    }
 
     public static Connection initialize() {
+        createTables();
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost/dictionary?" +
                     "user=hust&password=diaodiaodiao");
