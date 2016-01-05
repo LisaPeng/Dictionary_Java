@@ -1,9 +1,6 @@
 import java.sql.*;
 import java.util.ArrayList;
 
-/**
- * Created by mingtao on 1/5/16.
- */
 public class DA {
     private Connection conn;
     private Statement statement;
@@ -28,6 +25,9 @@ public class DA {
         }
     }
 
+    /**
+     * 初始化
+     */
     public void initialize() {
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost/dictionary?" +
@@ -43,7 +43,9 @@ public class DA {
         createTables();
     }
 
-    //关闭连接
+    /**
+     * 断开连接
+     */
     public void terminate() {
         try {
             this.statement.close();
@@ -53,6 +55,11 @@ public class DA {
         }
     }
 
+    /**
+     * 向数据库中添加一个单词
+     * @param word Word类型
+     * @return bool类型，当添加成功时为true，否则为false
+     */
     public boolean add(Word word) {
         String spelling, meaning, sentence;
         spelling = word.getWord();
@@ -68,14 +75,28 @@ public class DA {
         return false;
     }
 
-    public static void del() {
-
+    /**
+     * 删除操作
+     * @param spelling 指单词的拼写
+     * @return bool类型，当删除成功，则为true，否则为false
+     */
+    public boolean del(String spelling) {
+        String sql = "DELETE FROM Word WHERE spelling = '" + spelling +"'";
+        try {
+            int flag = this.statement.executeUpdate(sql);
+            if(flag == 1) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("sql语句执行删除失败");
+        }
+        return false;
     }
 
-    public static void update() {
-
-    }
-
+    /**
+     * 导出数据库中所有单词，用于构造wordTree
+     * @return ArrayList类型，每个元素都是一个Word
+     */
     public ArrayList<Word> output() {
         String spelling, meaning, sentence;
         ArrayList<Word> arrayList = new ArrayList<>();
